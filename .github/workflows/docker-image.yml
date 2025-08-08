@@ -27,11 +27,8 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          echo "🔧 Building $SERVICE_TAG from ${{ matrix.service }}/app.dockerfile"
-          docker build -f ${{ matrix.service }}/app.dockerfile -t ${{ secrets.DOCKER_USERNAME }}/microservice:${{ github.run_id }}
-          
-          echo "📤 Pushing image to DockerHub..."
-          docker push $DOCKER_USER/$REPO_NAME:$IMAGE_TAG
-
-      - name: ✅ Done
-        run: echo "✔️ Successfully pushed $DOCKER_USER/$REPO_NAME:$IMAGE_TAG"
+          IMAGE_NAME=$(echo "${{ matrix.service }}" | tr '[:upper:]' '[:lower:]')
+          docker build -f ./${{ matrix.service }}/app.dockerfile \
+                       -t ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:${{ github.run_id }} \
+                       ./${{ matrix.service }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/$IMAGE_NAME:${{ github.run_id }}
