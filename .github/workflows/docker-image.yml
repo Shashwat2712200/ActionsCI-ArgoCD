@@ -27,10 +27,10 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          echo "Building image for ${{ env.SERVICE_NAME }}..."
+          echo "📦 Building ${{ env.SERVICE_NAME }} from ./${{ matrix.service }}/app.dockerfile"
           docker build -f ./${{ matrix.service }}/app.dockerfile \
-            -t ${{ env.IMAGE_NAME }}:${{ env.SERVICE_NAME }}-${{ github.run_id }} \
+            -t ${{ env.IMAGE_NAME }}:${{ env.DOCKER_TAG }} \
             ./${{ matrix.service }}
 
-          echo "Pushing image ${{ env.IMAGE_NAME }}:${{ env.SERVICE_NAME }}-${{ github.run_id }}"
-          docker push ${{ env.IMAGE_NAME }}:${{ env.SERVICE_NAME }}-${{ github.run_id }}
+          echo "🚀 Pushing image ${{ env.IMAGE_NAME }}:${{ env.DOCKER_TAG }}"
+          docker push ${{ env.IMAGE_NAME }}:${{ env.DOCKER_TAG }}
