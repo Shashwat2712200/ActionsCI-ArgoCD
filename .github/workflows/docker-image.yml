@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [ ApiGatway, FrontendApplication, QuoteService ]
+        service: [ ApiGateway, FrontendApplication, QuoteService ]
 
     steps:
       - name: Checkout Code
