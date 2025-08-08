@@ -1,6 +1,6 @@
 # Use official node image from docker
 FROM node:10
-
+ 
 # Create application directory
 RUN mkdir -p /usr/src/app
 
